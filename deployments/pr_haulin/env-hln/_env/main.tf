@@ -32,7 +32,7 @@ variable "doc_link_base" {
   default     = ""
 }
 variable "first_run" {
-  default = true
+  default = false
 }
 
 ################################################################################
