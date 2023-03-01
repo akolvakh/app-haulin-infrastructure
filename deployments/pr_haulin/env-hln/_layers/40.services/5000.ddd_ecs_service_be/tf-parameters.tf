@@ -9,7 +9,7 @@
 resource "aws_ssm_parameter" "server_base_url" {
   name        = "/${var.label["Product"]}/${var.label["Environment"]}/service_${var.service_name}/server_base_url"
   type        = "String"
-  value       = var.server_base_url
+  value       = var.profile.server_base_url
   description = "SERVER_BASE_URL"
   tags        = module.label.tags
   #   lifecycle {
@@ -22,7 +22,7 @@ resource "aws_ssm_parameter" "server_base_url" {
 resource "aws_ssm_parameter" "server_domain" {
   name        = "/${var.label["Product"]}/${var.label["Environment"]}/service_${var.service_name}/server_domain"
   type        = "String"
-  value       = var.server_domain
+  value       = var.profile.server_domain
   description = "SERVER_DOMAIN"
   tags        = module.label.tags
   #   lifecycle {
@@ -35,7 +35,7 @@ resource "aws_ssm_parameter" "server_domain" {
 resource "aws_ssm_parameter" "server_secret" {
   name        = "/${var.label["Product"]}/${var.label["Environment"]}/service_${var.service_name}/server_secret"
   type        = "String"
-  value       = var.server_secret
+  value       = var.profile.server_secret
   description = "SERVER_SECRET"
   tags        = module.label.tags
   #   lifecycle {
@@ -49,7 +49,7 @@ resource "aws_ssm_parameter" "server_secret" {
 resource "aws_ssm_parameter" "spring_datasource_driver_class_name" {
   name        = "/${var.label["Product"]}/${var.label["Environment"]}/service_${var.service_name}/spring_datasource_driver_class_name"
   type        = "String"
-  value       = var.spring_datasource_driver_class_name
+  value       = var.profile.spring_datasource_driver_class_name
   description = "SPRING_DATASOURCE_DRIVER_CLASS_NAME"
   tags        = module.label.tags
   #   lifecycle {
@@ -62,7 +62,7 @@ resource "aws_ssm_parameter" "spring_datasource_driver_class_name" {
 resource "aws_ssm_parameter" "spring_profiles_active" {
   name        = "/${var.label["Product"]}/${var.label["Environment"]}/service_${var.service_name}/spring_profiles_active"
   type        = "String"
-  value       = var.spring_profiles_active
+  value       = var.profile.spring_profiles_active
   description = "SPRING_PROFILES_ACTIVE"
   tags        = module.label.tags
   #   lifecycle {
@@ -104,7 +104,7 @@ resource "aws_ssm_parameter" "region" {
 resource "aws_ssm_parameter" "phoenix_master_db_schema" {
   name        = "/${var.label["Product"]}/${var.label["Environment"]}/service_${var.service_name}/phoenix_master_db_schema"
   type        = "String"
-  value       = var.phoenix_master_db_schema
+  value       = var.profile.db_schema
   description = "DB_SCHEMA"
   tags        = module.label.tags
 #   lifecycle {

@@ -2,26 +2,24 @@
 # Connections
 #--------------------------------------------------------------
 #lambdas
-variable "outputs_lambda_lambda_pre_authentication_arn" {}
-variable "outputs_lambda_lambda_pre_authentication_function_name" {}
-variable "outputs_lambda_lambda_post_authentication_arn" {}
-variable "outputs_lambda_lambda_post_authentication_function_name" {}
-variable "outputs_lambda_lambda_post_confirmation_arn" {}
-variable "outputs_lambda_lambda_post_confirmation_function_name" {}
-// variable "outputs_lambda_lambda_custom_email_sender_arn" {}
-// variable "outputs_lambda_lambda_custom_email_sender_function_name" {}
+#variable "outputs_lambda_lambda_pre_authentication_arn" {}
+#variable "outputs_lambda_lambda_pre_authentication_function_name" {}
+#variable "outputs_lambda_lambda_post_authentication_arn" {}
+#variable "outputs_lambda_lambda_post_authentication_function_name" {}
+#variable "outputs_lambda_lambda_post_confirmation_arn" {}
+#variable "outputs_lambda_lambda_post_confirmation_function_name" {}
+#variable "outputs_lambda_lambda_custom_email_sender_arn" {}
+#variable "outputs_lambda_lambda_custom_email_sender_function_name" {}
 
 #--------------------------------------------------------------
 # General
 #--------------------------------------------------------------
 variable "label" {}
+variable "profile" {}
 variable "cognito_urls" {}
-variable "cognito_mail_from_domain" {}
-variable "cognito_ses_domain" {}
-variable "cogntio_ses_sender" {}
-variable "cogntio_ses_email_subject" {}
-variable "cognito_invite_email_subject" {}
 variable "cognito_invite_email_message" {}
+
+
 variable "tf_framework_component_version" {
   description = "GIT tag or branch if no tag vailable, identifying terraform source code version being run. Set by Makefile Framework"
 }
@@ -34,11 +32,6 @@ variable "cognito_additional_tags" {
 #--------------------------------------------------------------
 # SES
 #--------------------------------------------------------------
-variable "ses_aws_region" {}
-variable "sns_monthly_spend_limit" {
-  type        = number
-  description = "aws budget cap for SNS sending in this account, in $. Ref https://docs.aws.amazon.com/sns/latest/dg/sms_preferences.html"
-}
 variable "external_dns_domain" {
   description = "visible in internet DNS name of current environment. non-prod-PRODUCT.com/PRODUCT.com"
 }

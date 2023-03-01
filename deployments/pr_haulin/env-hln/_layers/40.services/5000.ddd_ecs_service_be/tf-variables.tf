@@ -18,6 +18,26 @@ variable "outputs_s3_s3_bucket_name" {}
 # General
 #--------------------------------------------------------------
 variable "label" {}
+variable "profile" {}
+
+
+#variable "external_dns_domain" {}
+#variable "base_app_url" {}
+#variable "server_base_url" {}
+#variable "server_domain" {}
+#variable "csrf_enabled" {}
+#variable "server_secret" {}
+#variable "spring_datasource_driver_class_name" {}
+#variable "db_schema" {}
+#variable "spring_profiles_active" {
+#  type        = string
+#  description = "Active profile"
+#}
+#variable "smoketest_emails" {
+#  type = string
+#}
+
+
 variable "first_run" {}
 variable "platform_name" {}
 variable "tag_role" {
@@ -32,32 +52,20 @@ variable "tag_description" {
   type    = string
   default = "Main APP  serivce to be split"
 }
-variable "spring_profiles_active" {
-  type        = string
-  description = "Active profile"
-}
+
 variable "tf_framework_component_version" {}
 variable "doc_link_base" {
   type        = string
   description = "base url for wiki page holding documentation for the secret(s)"
   default     = "https://phoenix.atlassian.net/wiki/spaces/DOCUMENTAT/pages/471433238/Secrets+and+environment+specific+params"
 }
-variable "smoketest_emails" {
-  type = string
-}
+
 variable "parameter_additional_tags" {
   type        = map(any)
   description = "add here any additional tags you want assign to parameters created"
   default     = {}
 }
-variable "external_dns_domain" {}
-variable "base_app_url" {}
-variable "server_base_url" {}
-variable "server_domain" {}
-variable "csrf_enabled" {}
-variable "server_secret" {}
-variable "spring_datasource_driver_class_name" {}
-variable "db_schema" {}
+
 
 #--------------------------------------------------------------
 # ECS

@@ -23,9 +23,9 @@ module "cognito_app_user_pool" {
   # TODO # app_main_cognito                         = true
   recovery_mechanisms                      = [{ "name" = "verified_email", "priority" = 1 }] //[{ "name" = "verified_email", "priority" = 1 }, { "name" = "verified_phone_number", "priority" = 2 }]
   email_configuration_source_arn           = module.cognito_app_ses.mail_from_arn
-  email_configuratino_from_email           = "${var.cogntio_ses_email_subject} <${var.cognito_mail_from_domain}>" //"PeerPrep App <${module.cognito_app_ses.mail_from_email}>" //"${var.label["Product"]} App <${module.cognito_app_ses.mail_from_email}>"
+  email_configuratino_from_email           = "${var.profile.cogntio_ses_email_subject} <${var.profile.cognito_mail_from_domain}>"
   cognito_invite_email_message             = var.cognito_invite_email_message
-  cognito_invite_email_subject             = var.cognito_invite_email_subject
+  cognito_invite_email_subject             = var.profile.cognito_invite_email_subject
   
   lambda_config = {
     # create_auth_challenge          = "arn:aws:lambda:us-east-1:123456789012:function:create_auth_challenge"
@@ -35,14 +35,14 @@ module "cognito_app_user_pool" {
     # pre_token_generation           = "arn:aws:lambda:us-east-1:123456789012:function:pre_token_generation"
     # user_migration                 = "arn:aws:lambda:us-east-1:123456789012:function:user_migration"
     # verify_auth_challenge_response = "arn:aws:lambda:us-east-1:123456789012:function:verify_auth_challenge_response"
-    post_confirmation                 = var.outputs_lambda_lambda_post_confirmation_arn
-    pre_authentication                = var.outputs_lambda_lambda_pre_authentication_arn
-    post_authentication               = var.outputs_lambda_lambda_post_authentication_arn
-    kms_key_id                        = aws_kms_key.cognito_custom_email_sender_lambda_key.arn
-    // lambda_config_custom_email_sender = {
-    //   lambda_arn                      = var.outputs_lambda_lambda_custom_email_sender_arn
-    //   lambda_version                  = "V1_0"
-    // }
+#    post_confirmation                 = var.outputs_lambda_lambda_post_confirmation_arn
+#    pre_authentication                = var.outputs_lambda_lambda_pre_authentication_arn
+#    post_authentication               = var.outputs_lambda_lambda_post_authentication_arn
+#    kms_key_id                        = aws_kms_key.cognito_custom_email_sender_lambda_key.arn
+#    lambda_config_custom_email_sender = {
+#        lambda_arn                      = var.outputs_lambda_lambda_custom_email_sender_arn
+#        lambda_version                  = "V1_0"
+#      }
   }
   
   token_expiration_access                  = 1
@@ -133,9 +133,9 @@ module "cognito_app_user_pool" {
 
 module "cognito_app_ses" {
   source                   = "../../../../../../libft/generic-modules/ses"
-  dns_external_zone_domain = var.cognito_ses_domain //var.external_dns_domain //var.cognito_mail_from_domain //"peerprep.co" //"book-nook-learning.com"  //"peerprep.co" //var.external_dns_domain
-  mail_from_domain         = "mail.${var.cognito_ses_domain}"  //"mail.${var.external_dns_domain}" //"mail.book-nook-learning.com" //"mail.${var.external_dns_domain}" //"mail.peerprep.co"
-  cogntio_ses_sender       = var.cogntio_ses_sender 
+  dns_external_zone_domain = var.profile.cognito_ses_domain //var.external_dns_domain //var.cognito_mail_from_domain //"peerprep.co" //"book-nook-learning.com"  //"peerprep.co" //var.external_dns_domain
+  mail_from_domain         = "mail.${var.profile.cognito_ses_domain}"  //"mail.${var.external_dns_domain}" //"mail.book-nook-learning.com" //"mail.${var.external_dns_domain}" //"mail.peerprep.co"
+  cogntio_ses_sender       = var.profile.cogntio_ses_sender
   environment              = var.label["Environment"]
   aws_region               = var.label["Region"]
 }
@@ -161,40 +161,40 @@ module "cognito_app_ses" {
 #   source_arn    = module.cognito_app_user_pool.cognito_pool_arn
 # }
 
-resource "aws_lambda_permission" "cognito_post_confirmation" {
-   statement_id  = "AllowExecutionFromCognito"
-   action        = "lambda:InvokeFunction"
-   function_name = var.outputs_lambda_lambda_post_confirmation_function_name
-   principal     = "cognito-idp.amazonaws.com"
-   source_arn    = module.cognito_app_user_pool.cognito_pool_arn
- }
+#resource "aws_lambda_permission" "cognito_post_confirmation" {
+#   statement_id  = "AllowExecutionFromCognito"
+#   action        = "lambda:InvokeFunction"
+#   function_name = var.outputs_lambda_lambda_post_confirmation_function_name
+#   principal     = "cognito-idp.amazonaws.com"
+#   source_arn    = module.cognito_app_user_pool.cognito_pool_arn
+# }
 
-resource "aws_lambda_permission" "cognito_post_authentication" {
-  statement_id  = "AllowExecutionFromCognito"
-  action        = "lambda:InvokeFunction"
-  function_name = var.outputs_lambda_lambda_post_authentication_function_name
-  principal     = "cognito-idp.amazonaws.com"
-  source_arn    = module.cognito_app_user_pool.cognito_pool_arn
-}
+#resource "aws_lambda_permission" "cognito_post_authentication" {
+#  statement_id  = "AllowExecutionFromCognito"
+#  action        = "lambda:InvokeFunction"
+#  function_name = var.outputs_lambda_lambda_post_authentication_function_name
+#  principal     = "cognito-idp.amazonaws.com"
+#  source_arn    = module.cognito_app_user_pool.cognito_pool_arn
+#}
 
-resource "aws_lambda_permission" "cognito_pre_authentication" {
-  statement_id  = "AllowExecutionFromCognito"
-  action        = "lambda:InvokeFunction"
-  function_name = var.outputs_lambda_lambda_pre_authentication_function_name
-  principal     = "cognito-idp.amazonaws.com"
-  source_arn    = module.cognito_app_user_pool.cognito_pool_arn
-}
+#resource "aws_lambda_permission" "cognito_pre_authentication" {
+#  statement_id  = "AllowExecutionFromCognito"
+#  action        = "lambda:InvokeFunction"
+#  function_name = var.outputs_lambda_lambda_pre_authentication_function_name
+#  principal     = "cognito-idp.amazonaws.com"
+#  source_arn    = module.cognito_app_user_pool.cognito_pool_arn
+#}
 
-// resource "aws_lambda_permission" "cognito_custom_email_sender" {
-//   statement_id  = "AllowExecutionFromCognito"
-//   action        = "lambda:InvokeFunction"
-//   function_name = var.outputs_lambda_lambda_custom_email_sender_function_name
-//   principal     = "cognito-idp.amazonaws.com"
-//   source_arn    = module.cognito_app_user_pool.cognito_pool_arn
-// }
+#resource "aws_lambda_permission" "cognito_custom_email_sender" {
+#   statement_id  = "AllowExecutionFromCognito"
+#   action        = "lambda:InvokeFunction"
+#   function_name = var.outputs_lambda_lambda_custom_email_sender_function_name
+#   principal     = "cognito-idp.amazonaws.com"
+#   source_arn    = module.cognito_app_user_pool.cognito_pool_arn
+#}
 
 
-resource "aws_kms_key" "cognito_custom_email_sender_lambda_key" {
-  description             = "KMS key for cognito custom sender lambda"
-  deletion_window_in_days = 10
-}
+#resource "aws_kms_key" "cognito_custom_email_sender_lambda_key" {
+#  description             = "KMS key for cognito custom sender lambda"
+#  deletion_window_in_days = 10
+#}

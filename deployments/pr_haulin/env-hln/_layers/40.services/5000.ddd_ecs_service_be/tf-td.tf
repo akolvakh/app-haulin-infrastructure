@@ -5,9 +5,9 @@ module "task_def" {
     cache_entrypoint              = var.outputs_cache_cache_entrypoint[0]
     cognito_user_pool             = var.outputs_cognito_cognito_app_pool_id
     docker_registry_url           = aws_ecr_repository.ecr.repository_url
-    spring_profiles_active        = var.spring_profiles_active
-    server_base_url               = var.server_base_url
-    server_domain                 = var.server_domain
+    spring_profiles_active        = var.profile.spring_profiles_active
+    server_base_url               = var.profile.server_base_url
+    server_domain                 = var.profile.server_domain
     aws_bucket_id                 = var.outputs_s3_s3_bucket_name
     service_name                  = var.service_name
     manual                        = false

@@ -11,7 +11,7 @@ So - parking those SNS account wide setting in this Cognito module for now
 # SNS
 #--------------------------------------------------------------
 resource "aws_sns_sms_preferences" "sms_prefs" {
-  monthly_spend_limit                   = var.sns_monthly_spend_limit
+  monthly_spend_limit                   = var.profile.sns_monthly_spend_limit
   default_sms_type                      = "Transactional"
   delivery_status_success_sampling_rate = "100"
   delivery_status_iam_role_arn          = aws_iam_role.sns_log.arn
