@@ -91,7 +91,6 @@ test
 backend.tf
 containerdefinition.json
 docker-compose.yml
-Dockerfile
 env-test.tf
 providers.tf
 .terraform.lock.hcl
@@ -175,7 +174,6 @@ test
 backend.tf
 containerdefinition.json
 docker-compose.yml
-Dockerfile
 env-test.tf
 providers.tf
 .terraform.lock.hcl
