@@ -1,0 +1,13 @@
+{
+    "PRODUCTGoogle":
+     {
+        "provider_name":  "PRODUCTGoogle",
+        "metadata_xml": "PRODUCT-production.xml",
+         "saml_metadata_sso_redirect_binding_uri": "https://accounts.google.com/o/saml2/idp?idpid=C02dkivf5",
+         "attribute_mapping": {
+           "email": "email",
+           "username": "email"
+          }
+     }
+   }
+   

@@ -1,0 +1,85 @@
+#-------------------------------------------------------------------------------
+# HOOKS + SONAR
+#-------------------------------------------------------------------------------
+image: registry.geniusee.space/geniuseehub/docker:20.10.17
+
+services:
+  - registry.geniusee.space/geniuseehub/docker:20.10.17-dind
+
+stages:
+  - pre-commit
+  - tests
+
+variables:
+  FF_GITLAB_REGISTRY_HELPER_IMAGE: "true"
+  FF_NETWORK_PER_BUILD: 1
+
+pre-commit-hooks:
+  image: python:3-alpine
+  stage: pre-commit
+  # variables:
+  #   release: "1.3.9"
+  # before_script:
+  #   - apk add --update bash curl git unzip
+  #   - wget https://releases.hashicorp.com/terraform/${release}/terraform_${release}_linux_amd64.zip
+  #   - unzip terraform_${release}_linux_amd64.zip
+  #   - mv terraform /usr/bin/terraform
+  #   - pip install pre-commit checkov Terrascan terraform_validate
+  #   - curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+  script:
+    # - cd ${CI_PROJECT_DIR}/deployments/pr_mytutor/env-red/_env/
+    # - terraform init
+    # - tflint --module --recursive
+    # - cd ${CI_PROJECT_DIR}/deployments/pr_mytutor/env-uss/_env/
+    # - terraform init
+    # - tflint --module --recursive
+    # - cd ${CI_PROJECT_DIR}/deployments/pr_mytutor/env-usp/_env/
+    # - terraform init
+    # - tflint --module --recursive
+    # - pre-commit run -a
+    - echo 'skip pre-commit'
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
+      when: always
+      allow_failure: false
+
+sonar: # https://sonarcloud.io/project/branches_list?id=app-phoenix-infrastructure
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  stage: tests
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  # before_script:
+  #   - export SONAR_SCANNER_VERSION=4.7.0.2747
+  #   - export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+  #   - |
+  #     curl --create-dirs -sSLo \
+  #     $HOME/.sonar/sonar-scanner.zip \
+  #     https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+  #   - yum install -y unzip
+  #   - unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+  #   - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+  #   - export SONAR_SCANNER_OPTS="-server"
+  script:
+    - export SONAR_TOKEN="1def622ac10784a5be401a0763f357d0284359cd"
+    - sonar-scanner
+  only:
+    - develop
+  # rules:
+  #   - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
+  #     when: always
+  #     allow_failure: true
+
+    # - |
+    #   export SONAR_TOKEN="1def622ac10784a5be401a0763f357d0284359cd"
+    #   sonar-scanner \
+    #   -Dsonar.projectKey=app-phoenix-infrastructure \
+    #   -Dsonar.sources=. \
+    #   -Dsonar.host.url=http://localhost:9000 \
+    #   -Dsonar.login=sqp_34316d3e30ffbb9247198117f58aa5538f5dad4b

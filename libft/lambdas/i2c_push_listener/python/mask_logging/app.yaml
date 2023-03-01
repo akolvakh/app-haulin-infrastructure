@@ -1,0 +1,33 @@
+version: 1
+disable_existing_loggers: False
+
+filters:
+    filter:
+        (): mask_logging.filter.MaskingFilter
+        patterns:
+            - "LedgerBalance"
+            - "Id"
+            - "UserId"
+            - "Password"
+            - "AddressLine2"
+            - "AddressLine1"
+            - "City"
+            - "State"
+            - "PostalCode"
+            - "CountryCode"
+            - "FirstName"
+            - "LastName"
+            - "CellNo"
+
+handlers:
+    console:
+        class: mask_logging.handler.CustomHandler
+        level: INFO
+        stream: ext://sys.stdout
+        filters:
+            - filter
+
+root:
+    level: INFO
+    handlers:
+        - console

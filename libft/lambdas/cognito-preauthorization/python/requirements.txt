@@ -1,0 +1,6 @@
+boto3
+requests
+jsonpickle
+aws-xray-sdk
+cachetools
+pyyaml

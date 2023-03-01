@@ -1,0 +1,7 @@
+python-gnupg
+pysftp
+boto3
+requests
+jsonpickle
+aws-xray-sdk
+cachetools

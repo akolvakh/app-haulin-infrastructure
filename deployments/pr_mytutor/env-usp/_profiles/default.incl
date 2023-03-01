@@ -1,0 +1,4 @@
+AWS_BACKEND_PROFILE=default
+AWS_BACKEND_REGION=us-east-1
+TF_VAR_aws_backend_region="${AWS_BACKEND_REGION}"
+TF_VAR_aws_region="us-east-1"

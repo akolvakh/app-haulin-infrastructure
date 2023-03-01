@@ -1,0 +1,17 @@
+# TODO: split this into three - Makefile, Rules.incl (shared with Makefile.incl), and Makefile.incl
+
+${TF_NEEDS_QUOTES_lambda_source}/i2c_push_listener_layer.zip: ${TF_NEEDS_QUOTES_lambda_source}/requirements.txt
+	(cd ${TF_NEEDS_QUOTES_lambda_source} && make layer);
+
+layer: ${TF_NEEDS_QUOTES_lambda_source}/i2c_push_listener_layer.zip
+
+${TF_NEEDS_QUOTES_lambda_source}/i2c_push_listener_package.zip: ${TF_NEEDS_QUOTES_lambda_source}/*.py Makefile
+	(cd ${TF_NEEDS_QUOTES_lambda_source} && make package);
+
+package: ${TF_NEEDS_QUOTES_lambda_source}/i2c_push_listener_package.zip
+
+clean::
+	(cd ${TF_NEEDS_QUOTES_lambda_source} && make clean);
+
+# combines with the top level makefile depends
+depends:: package layer

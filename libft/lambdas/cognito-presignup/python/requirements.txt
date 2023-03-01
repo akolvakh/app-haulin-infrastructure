@@ -1,0 +1,4 @@
+requests
+jsonpickle
+aws-xray-sdk
+pyyaml

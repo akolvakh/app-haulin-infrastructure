@@ -1,0 +1,23 @@
+version: 1
+disable_existing_loggers: False
+
+filters:
+    filter:
+        (): mask_logging.filter.MaskingFilter
+        patterns:
+            - "cognito:email_alias"
+            - "birthdate"
+            - "phone_number"
+
+handlers:
+    console:
+        class: mask_logging.handler.CustomHandler
+        level: INFO
+        stream: ext://sys.stdout
+        filters:
+            - filter
+
+root:
+    level: INFO
+    handlers:
+        - console

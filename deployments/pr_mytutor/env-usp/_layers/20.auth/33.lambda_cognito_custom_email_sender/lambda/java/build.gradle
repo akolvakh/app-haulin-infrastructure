@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+group 'terraform-lambda-java'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+    mavenCentral()
+
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    compile 'com.amazonaws:aws-lambda-java-core:1.2.0'
+    compile 'com.amazonaws:aws-lambda-java-events:2.2.6'
+    compile 'com.amazonaws:aws-lambda-java-log4j2:1.1.0'
+    compile (name:'json-simple-1.1.1', ext:'jar')
+    compile 'com.amazonaws:aws-java-sdk-core:1.11.901'
+    compile 'com.amazonaws:aws-java-sdk-ses:1.11.901'
+    compile 'com.amazonaws:aws-java-sdk-s3:1.11.901'
+    compile group: 'org.springframework', name: 'spring-web', version: '5.1.2.RELEASE' //Thanks for using https://jar-download.com 
+    implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
+    
+    
+}
+
+tasks.withType(Jar) {
+    into('lib') {
+        from 'libs'
+    }
+    destinationDir = file("$rootDir/output/")
+}

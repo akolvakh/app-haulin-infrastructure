@@ -1,0 +1,53 @@
+version: 1
+disable_existing_loggers: False
+
+filters:
+    filter:
+        (): mask_logging.filter.MaskingFilter
+        patterns:
+            - "balance"
+            - "cvv"
+            - "accountNumber"
+            - "accountType"
+            - "securityCode"
+            - "cardNumber"
+            - "ledgerBalance"
+            - "expirationDate"
+            - "expiryDate"
+            - "expDate"
+            - "abaRoutingNumber"
+            - "pseudoDdaNumber"
+            - "newCardNumber"
+            - "sharingCardNumber"
+            - "number"
+            - "routingNumber"
+            - "address2"
+            - "address1"
+            - "address"
+            - "city"
+            - "stateCode"
+            - "postalCode"
+            - "country"
+            - "firstName"
+            - "middleName"
+            - "lastName"
+            - "suffix"
+            - "userSuffix"
+            - "cellNumber"
+            - "ssn"
+            - "dob"
+            - "email"
+            - "nameOnCard"
+
+handlers:
+    console:
+        class: mask_logging.handler.CustomHandler
+        level: INFO
+        stream: ext://sys.stdout
+        filters:
+            - filter
+
+root:
+    level: INFO
+    handlers:
+        - console

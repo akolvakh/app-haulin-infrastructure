@@ -1,0 +1,36 @@
+###################
+#to be included by executable shell scripts for th Makefile framework
+##################
+##################
+# LOG levels priorities 
+# 1. TRACE
+# 2. INFO
+# 3. ERR
+# When Z_TF_LOG_LEVEL = <a log level>, all messages with this level and lower will be logged
+
+
+log () {
+  declare -A log_levels
+  log_levels['TRACE']=1
+  log_levels['INFO']=2
+  log_levels['ERR']=3
+
+ 
+  current_level="${Z_TF_LOG_LEVEL:-TRACE}"
+  requested_level=$1
+  cur=${log_levels[$current_level]}
+  req=${log_levels[$requested_level]}
+  if (( $req >= $cur )) ; then echo "LOGGER $*"; fi
+}
+
+log_info () {
+  log "INFO" $1
+}
+
+log_trace () {
+  log "TRACE" $1
+}
+
+log_err () {
+  log "ERR" $1
+}

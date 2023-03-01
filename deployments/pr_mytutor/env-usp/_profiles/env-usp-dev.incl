@@ -1,0 +1,310 @@
+#--------------------------------------------------------------
+# General
+#--------------------------------------------------------------
+TF_VAR_aws_region                                               = "us-east-1"
+TF_VAR_aws_backend_region                                       = "us-east-1"
+TF_VAR_environment                                              = "dev"
+TF_VAR_platform_name                                            = "us-primary"
+TF_VAR_clever_url                                               = "https://uss-staging.auth.us-east-1.amazoncognito.com/oauth2/authorize?response_type=code&client_id=793776eqmckf7u7ujia8hrmee6&redirect_uri=https%3A%2F%2Fd1dtfbyi08uuyl.cloudfront.net%2Fauth%2Flogin&state=qweqw2131a123a1231212&identity_provider=Clever&scope=aws.cognito.signin.user.admin+openid+profile"
+TF_VAR_lesson_space_api                                         = "10555e09-8b63-454d-9900-9e0392b7fb69"
+#lesson_space_api                                               = "6ccc50aa-b8d9-4f88-90ff-36e8f2d6ede4"
+TF_VAR_email_from_domain                                        = "support@book-nook-learning.com"
+TF_VAR_dynamic_link_domain_prefix                               = "https://usp.dev.book-nook-learning.com"
+TF_VAR_phoenix_master_db_schema                                 = "mytutor"
+#--------------------------------------------------------------
+# Tags
+#--------------------------------------------------------------
+# tag_orchestration                                             = "deployments/account-app/35.cognito"
+# tf_framework_component_version                                = "/branch:develop/tag:unknown/path:deployments/account-app/35.cognito/"
+TF_VAR_tag_product                                              = "usp"
+TF_VAR_product                                                  = "usp"
+TF_VAR_contact                                                  = "a.kolvakh@geniusee.com"
+#--------------------------------------------------------------
+# BE
+#--------------------------------------------------------------
+TF_VAR_csrf_enabled                                             = true
+TF_VAR_spring_profiles_active                                   = "development"
+TF_VAR_spring_datasource_url                                    = "1"   # value       = "jdbc:postgresql://phoenix-app-dev-new.cluster-cpewhy546lbt.us-east-1.rds.amazonaws.com:5432/phoenix_app_dev_default?ssl=true&sslmode=require"
+TF_VAR_spring_datasource_driver_class_name                      = "org.postgresql.Driver"
+TF_VAR_server_secret                                            = "CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz"
+TF_VAR_server_domain                                            = "usp.dev.book-nook-learning.com"
+TF_VAR_server_base_url                                          = "https://usp.dev.book-nook-learning.com"
+#--------------------------------------------------------------
+# FE
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# QA
+#--------------------------------------------------------------
+TF_VAR_smoketest_emails                                         = "testautomation@book-nook-learning.com"
+TF_VAR_booknook_base_app_url                                    = "https://app-qa.booknooklearning.com"
+TF_VAR_booknook_app_url                                         = "https://app-qa.booknooklearning.com"
+#--------------------------------------------------------------
+# GitHub
+#--------------------------------------------------------------
+TF_VAR_gh_connection_arn                                        = "arn:aws:codestar-connections:us-east-1:876883435906:connection/d31b6a66-5b40-4215-9ce4-9d9fb2c8929b"
+#--------------------------------------------------------------
+# 1.cloud9
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 2.gitlab
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 10.vpc
+#--------------------------------------------------------------
+TF_VAR_vpc_cidr                                                 = "10.201.0.0/16"
+# vpc_cidr                                                        = "10.230.0.0/16"
+#--------------------------------------------------------------
+# 15.dns
+#--------------------------------------------------------------
+TF_VAR_external_dns_domain                                      = "book-nook-learning.com"
+#--------------------------------------------------------------
+# 17.acm_private_certificate
+#--------------------------------------------------------------
+TF_VAR_certificate_authority_arn                                = "arn:aws:acm-pca:us-east-1:602355391257:certificate-authority/6ddf3a12-8844-4841-a4e9-9884d9c24526"
+TF_VAR_public_certificate_arn                                   = "arn:aws:acm:us-east-1:343423493973:certificate/8b995dbd-6165-4dc9-a3b5-78c3a68602b3"
+#--------------------------------------------------------------
+# 20.parameters
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 20.secrets
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 20.sg
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 20.static_ips
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 25.bastion
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 30.cache
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 30.db
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 30.kafka
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 33.lambda_cognito_post_authentication
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 33.lambda_cognito_post_confirmation
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 33.lambda_cognito_pre_authorization
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 35.cognito
+#--------------------------------------------------------------
+TF_VAR_ses_aws_region                                           = "us-east-1"
+TF_VAR_sns_monthly_spend_limit                                  = 1
+TF_VAR_cognito_ses_domain                                       = "book-nook-learning.com"
+TF_VAR_cogntio_ses_sender                                       = "support"
+TF_VAR_cogntio_ses_email_subject                                = "Book Nook App"
+TF_VAR_cognito_invite_email_subject                             = "Your temporary password"
+TF_VAR_cognito_mail_from_domain                                 = "book-nook-learning.com"
+TF_VAR_cognito_urls                                             = "https://usp-dev.auth.us-east-1.amazoncognito.com/login/cognito"
+TF_VAR_cognito_email_from_domain                                = "support+dev@book-nook-learning.com"
+TF_VAR_tutorcommunity_booknook_callback_url                     = "https://dev.tutorcommunity.booknook.com"
+#--------------------------------------------------------------
+# 40.ecs
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 55.cloudfront_web
+#--------------------------------------------------------------
+TF_VAR_cloudfront_alias                                         = ""
+#--------------------------------------------------------------
+# 5000.ddd_ecs_service_api_gateway
+#--------------------------------------------------------------
+TF_VAR_allowed_origin_patterns                                  = "*"
+#--------------------------------------------------------------
+# 5000.ddd_ecs_service_import
+#--------------------------------------------------------------
+TF_VAR_ecs_import_kafka_producer_tx_prefix                      = "import"
+#--------------------------------------------------------------
+# 5000.ddd_ecs_service_interview
+#--------------------------------------------------------------
+TF_VAR_ecs_interview_sparkhire_webhook_uuid                     = "3caca567-1cd3-4735-b683-dc7049127660"
+TF_VAR_ecs_interview_sparkhire_basic_auth_password              = "secured_user2"
+TF_VAR_ecs_interview_sparkhire_basic_auth_username              = "secured_user1"
+TF_VAR_ecs_interview_sparkhire_timezone                         = "UTC"
+TF_VAR_ecs_interview_sparkhire_interview_expiration_days        = 14
+TF_VAR_ecs_interview_sparkhire_question_set_uuid                = "31b3ff7c-5142-4d0a-ba3e-da654fcad276"
+TF_VAR_ecs_interview_sparkhire_basic_api_token                  = "98d6c700-74f5-4799-a989-af9bbc536430"
+TF_VAR_ecs_interview_sparkhire_basic_api_url                    = "https://api.sparkhire.com/v1.0"
+TF_VAR_ecs_interview_sparkhire_basic_www_url                    = "https://www.sparkhire.com"
+TF_VAR_ecs_interview_sparkhire_job_uuid                         = "77a76479-6cb9-4285-8cb1-8f7dc05905be"
+TF_VAR_ecs_interview_kafka_interview_update_topic_replicas      = 1
+TF_VAR_ecs_interview_kafka_interview_update_topic_partitions    = 1
+TF_VAR_ecs_interview_kafka_interview_update_topic_name          = "tutor-interview"
+TF_VAR_ecs_interview_db_schema                                  = "interview"
+#--------------------------------------------------------------
+# 5000.ddd_ecs_service_lesson_management
+#--------------------------------------------------------------
+TF_VAR_ecs_lesson_management_kafka_producer_tx_prefix           = "lesson-management"
+TF_VAR_ecs_lesson_management_spring_kafka_topics_users          = "USERS"
+TF_VAR_ecs_lesson_management_spring_kafka_topics_lesson         = "LESSONS"
+TF_VAR_ecs_lesson_management_tutor_join_time_minutes            = 3
+#--------------------------------------------------------------
+# 5000.ddd_ecs_service_message_bus
+#--------------------------------------------------------------
+TF_VAR_ecs_message_bus_kafka_lessons_topic_replicas             = 1
+TF_VAR_ecs_message_bus_kafka_lessons_topic_partitions           = 1
+#--------------------------------------------------------------
+# 5000.ddd_ecs_service_payment
+#--------------------------------------------------------------
+TF_VAR_ecs_payment_tutor_lesson_hour_cost                       = 18
+TF_VAR_ecs_payment_wm_url                                       = "https://booknook.wm.solutions/co/201/"
+TF_VAR_ecs_payment_wm_sign_up_url                               = "https://talentonboardingpage.com/"
+TF_VAR_ecs_payment_wm_sign_in_url                               = "https://talentonboardingpage.com/"
+TF_VAR_ecs_payment_wm_relay_id                                  = "973"
+TF_VAR_ecs_payment_wm_relay_access_token                        = "tgPan8RZYATBzaDi"
+TF_VAR_ecs_payment_wm_add_update_action                         = "updateRuleMeta"
+TF_VAR_ecs_payment_wm_rule_meta_group                           = "SessionID"
+TF_VAR_ecs_payment_wm_delete_action                             = "deleteRuleMeta"
+#--------------------------------------------------------------
+# 5000.ddd_ecs_service_program_management
+#--------------------------------------------------------------
+TF_VAR_ecs_program_management_kafka_producer_tx_prefix          = "program-management"
+#--------------------------------------------------------------
+# 5000.ddd_ecs_service_toa
+#--------------------------------------------------------------
+TF_VAR_ecs_toa_kafka_producer_tx_prefix                         = "user"
+TF_VAR_ecs_toa_db_schema                                        = "application"
+TF_VAR_ecs_toa_users_topic_name                                 = "USERS"
+#--------------------------------------------------------------
+# 5000.ddd_ecs_service_user
+#--------------------------------------------------------------
+TF_VAR_ecs_user_kafka_producer_tx_prefix                        = "user"
+#--------------------------------------------------------------
+# ETC
+#--------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-------------------------------------------------------------------------------
+# DEPRECATED####################################################################
+#-------------------------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 33.lambda_cognito_pre_signup
+#--------------------------------------------------------------
+
+
+#--------------------------------------------------------------
+# 31.sns
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 32.ecr_ecs
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 32.ecr_lambda
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 33.lambda_at_edge
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 33.lambda_slack_codepipeline_integration
+#--------------------------------------------------------------
+
+
+#--------------------------------------------------------------
+# 45.sqs
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 50.appsync
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 55.appsync_resolvers
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 55.cloudfront
+#--------------------------------------------------------------
+
+
+#--------------------------------------------------------------
+# 60.security_hub
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 70.ssm
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 100.private_dns
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 1000.codepipeline_appsync
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 1000.codepipeline_appsync_resolvers_ecs_service_be
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 1000.codepipeline_db_migrations
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 1000.codepipeline_ecs_service_be
+#--------------------------------------------------------------
+# tf_code_branch           = "release/1.2.1"
+# app_code_branch          = "release/1.1.0"
+
+#--------------------------------------------------------------
+# 1000.codepipeline_lambda
+#--------------------------------------------------------------
+# lambda_code_branch       = "release/1.1.1"
+
+#--------------------------------------------------------------
+# 1000.codepipeline_lambda_slack_integration
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------
+# 1001.ecs_service_be
+#--------------------------------------------------------------
+

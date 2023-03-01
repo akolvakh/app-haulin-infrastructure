@@ -1,0 +1,204 @@
+#--------------------------------------------------------------
+# Variables
+#--------------------------------------------------------------
+WORKSPACE=$(TF_NEEDS_QUOTES_environment)-$(AWS_BACKEND_REGION)
+
+# The result of these two lines puts the state file in the same
+# directory path as in the phoenix-infrastructure repository
+
+WORKSPACE_PATH=$(shell $(ROOT_DIR)/framework/bin/workspace_path.sh)
+REMOTE_STATE_PATH_PREFIX = $(shell $(ROOT_DIR)/framework/bin/workspace_path.sh);
+STATE_FILE=$(WORKSPACE_PATH)/terraform.tfstate
+BACKEND_TF_DIR=./.backend/
+BACKEND_TF=$(BACKEND_TF_DIR)/backend-$(WORKSPACE).tf
+ACCOUNT_NUMBER:=$(shell aws sts get-caller-identity --query Account --output text)
+ifneq ($(ACCOUNT_NUMBER),$(shell echo $(ACCOUNT_NUMBER) | egrep '^[0-9]+$$'))
+$(error "aws sts get-caller-identity - failed!")
+endif
+UNIQ_STATE_TAG=$(shell echo ${ACCOUNT_NUMBER} | md5sum | awk '{print $$1}')
+
+# ENV and REGION specific bucket and table
+
+S3_BUCKET=phoenix-tfstate-$(AWS_BACKEND_REGION)-$(UNIQ_STATE_TAG)
+DYNAMODB_TABLE=phoenix-tfstate-$(AWS_BACKEND_REGION)-$(UNIQ_STATE_TAG)
+LOCAL_STATE=.terraform/terraform.tfstate
+
+# Replication variables
+# If you want to use replication in your deployment just uncomment AWS_BACKEND_REGION_REPLICATION variable and set needed region
+
+#AWS_BACKEND_REGION_REPLICATION=us-west-2
+S3_REPLICATION_BUCKET=${S3_BUCKET}-rep
+FILE_TRUST_POLICY=s3-role-trust-policy.json
+FILE_POLICY=s3-role-permissions-policy.json
+FILE_REPLICATION=replication.json
+REPLICATION_ROLE=tfstate-$(UNIQ_STATE_TAG)-replicationRole
+REPLICATION_ROLE_POLICY=tfstate-$(UNIQ_STATE_TAG)-replicationRolePolicy
+GIT_URL=$(shell $(ROOT_DIR)/framework/bin/git_path.sh)
+TF_FRAMEWORK_COMPONENT_NAME=$(shell $(ROOT_DIR)/framework/bin/folder_path.sh)
+TFVARS=_$(WORKSPACE).tfvars
+
+test:
+	echo ${TFVARS}
+
+.PHONY: init
+init: depends select providers.tf  $(TFVARS)
+
+.PHONY: depends
+depends:: # double colon rule allows depends to be defined elsewhere as well
+
+.PHONY: select
+select: state
+	@if [ $(shell terraform workspace show) != $(WORKSPACE) ]; then \
+		echo "Creating and selecting workspace $(WORKSPACE)...";   \
+		(terraform workspace select $(WORKSPACE) || terraform workspace new $(WORKSPACE)); \
+	fi
+
+# When you change environments, because BACKEND_TF has an environment specific
+# name this will be regenerated.
+
+$(BACKEND_TF):
+	@echo "Creating backend config for ${BACKEND_TF}";      \
+	export WORKSPACE=${WORKSPACE};           \
+	export STATE_FILE=${STATE_FILE};         \
+	export REGION=${AWS_BACKEND_REGION};     \
+	export S3_BUCKET=${S3_BUCKET};           \
+	export DYNAMODB_TABLE=${DYNAMODB_TABLE}; \
+	export REMOTE_STATE_PATH_PREFIX=`dirname ${REMOTE_STATE_PATH_PREFIX}`; \
+	export REMOTE_STATE_PATH_SUFFIX=/terraform.tfstate;  \
+	mkdir -p `dirname ${BACKEND_TF}` && $(ROOT_DIR)/framework/bin/create_backend_config.sh > $@ &&  \
+	cat $@ && \
+	$(ROOT_DIR)/framework/bin/create_remote_states.sh
+
+tf-backend.tf: $(BACKEND_TF)
+	@cp $(BACKEND_TF) $@
+
+providers.tf:
+	$(ROOT_DIR)/framework/bin/create_providers.sh
+
+#$(LOCAL_STATE): tf-backend.tf providers.tf documentation
+$(LOCAL_STATE): tf-backend.tf providers.tf
+	@echo "Initializing terraform state: ${LOCAL_STATE}"; \
+	export AWS_BACKEND_PROFILE=${AWS_BACKEND_PROFILE};       \
+	export REGION=${AWS_BACKEND_REGION};                 \
+	export S3_BUCKET=${S3_BUCKET};           \
+	export DYNAMODB_TABLE=${DYNAMODB_TABLE}; \
+	export AWS_BACKEND_REGION_REPLICATION=${AWS_BACKEND_REGION_REPLICATION}; \
+	export S3_REPLICATION_BUCKET=${S3_REPLICATION_BUCKET}; \
+	export FILE_TRUST_POLICY=${FILE_TRUST_POLICY}; \
+	export FILE_POLICY=${FILE_POLICY}; \
+	export FILE_REPLICATION=${FILE_REPLICATION}; \
+	export REPLICATION_ROLE=${REPLICATION_ROLE}; \
+	export REPLICATION_ROLE_POLICY=${REPLICATION_ROLE_POLICY}; \
+	$(ROOT_DIR)/framework/bin/create_backend.sh &&              \
+	$(ROOT_DIR)/framework/bin/create_replica.sh && \
+	terraform init -compact-warnings -force-copy -backend=true && touch ${LOCAL_STATE}
+
+re-init:
+	terraform init -compact-warnings -force-copy -backend=true
+
+state: $(LOCAL_STATE)
+
+destroy_backend_state_for_all_environments:
+	@echo "Initializing terraform state: ${LOCAL_STATE}"; \
+	export AWS_BACKEND_PROFILE=${AWS_BACKEND_PROFILE};       \
+	export REGION=${AWS_BACKEND_REGION};                 \
+	export S3_BUCKET=${S3_BUCKET};           \
+	export DYNAMODB_TABLE=${DYNAMODB_TABLE}; \
+	export AWS_BACKEND_REGION_REPLICATION=${AWS_BACKEND_REGION_REPLICATION}; \
+	export S3_REPLICATION_BUCKET=${S3_REPLICATION_BUCKET}; \
+	export FILE_TRUST_POLICY=${FILE_TRUST_POLICY}; \
+	export FILE_POLICY=${FILE_POLICY}; \
+	export FILE_REPLICATION=${FILE_REPLICATION}; \
+	export REPLICATION_ROLE=${REPLICATION_ROLE}; \
+	export REPLICATION_ROLE_POLICY=${REPLICATION_ROLE_POLICY}; \
+	$(ROOT_DIR)/framework/bin/destroy_backend.sh &&\
+	$(ROOT_DIR)/framework/bin/destroy_replica.sh
+	
+#documentation:
+#	@echo "Creating DOCUMENTATION.md"; \
+#	$(ROOT_DIR)/framework/bin/create_docs.sh
+
+lint:
+	@echo "TFLINTING"; \
+	$(ROOT_DIR)/framework/bin/tflint.sh
+
+destroy_replica:
+	@echo "Initializing terraform state: ${LOCAL_STATE}"; \
+	export AWS_BACKEND_REGION_REPLICATION=${AWS_BACKEND_REGION_REPLICATION}; \
+	export S3_REPLICATION_BUCKET=${S3_REPLICATION_BUCKET}; \
+	export REPLICATION_ROLE=${REPLICATION_ROLE}; \
+	export REPLICATION_ROLE_POLICY=${REPLICATION_ROLE_POLICY}; \
+	$(ROOT_DIR)/framework/bin/destroy_replica.sh
+
+create_replica:
+	@echo "Initializing terraform state: ${LOCAL_STATE}"; \
+	export S3_BUCKET=${S3_BUCKET};           \
+	export AWS_BACKEND_REGION_REPLICATION=${AWS_BACKEND_REGION_REPLICATION}; \
+	export S3_REPLICATION_BUCKET=${S3_REPLICATION_BUCKET}; \
+	export FILE_TRUST_POLICY=${FILE_TRUST_POLICY}; \
+	export FILE_POLICY=${FILE_POLICY}; \
+	export FILE_REPLICATION=${FILE_REPLICATION}; \
+	export REPLICATION_ROLE=${REPLICATION_ROLE}; \
+	export REPLICATION_ROLE_POLICY=${REPLICATION_ROLE_POLICY}; \
+	$(ROOT_DIR)/framework/bin/create_replica.sh
+
+.PHONY: clean
+clean:: # double colon rule allows clean to be defined elsewhere as well
+	rm -f tf-backend.tf *.tfvars profiles/env.incl $(LOCAL_STATE) .terraform/environment _generated_* .terraform.lock.hcl
+	rm -f ./${BACKEND_TF_DIR}/*
+	if [ -d ${BACKEND_TF_DIR} ]; then rmdir ${BACKEND_TF_DIR}; fi
+	rm -rf ./.terraform
+	rm -rf ./build
+
+.PHONY: console
+console: init
+	terraform console
+
+.PHONY: format
+fmt: init
+	terraform fmt -write=true -recursive
+
+.PHONY: validate
+validate: init
+	terraform validate
+
+output:
+	terraform plan -lock=true -input=false -refresh=true -var-file=$(TFVARS) -out=TF-PLAN
+
+
+#
+#.PHONY: lint
+# https://github.com/terraform-linters/tflint
+#lint: prep ## Check for possible errors, best practices, etc in current directory!
+#	@tflint
+#
+#.PHONY: check-security
+# https://github.com/liamg/tfsec
+#check-security: prep ## Static analysis of your terraform templates to spot potential security issues.
+#	@tfsec .
+
+# Re-run anytime a .incl file changes
+$(TFVARS): profiles/*.incl
+	@rm -f $@
+	@echo "# Generated from: " `readlink profiles/env.incl` > $@
+	@for var in $(foreach v, $(filter TF_VAR_%,$(.VARIABLES)),'$(subst TF_VAR_,,$(v)) = $($(v))'); do\
+		echo $$var >> $@;\
+	done
+	#@for var in $(foreach v, $(filter TF_NEEDS_QUOTES_%,$(.VARIABLES)),'$(subst TF_NEEDS_QUOTES_,,$(v)) = "$($(v))"'); do\
+	#	echo $$var >> $@;\
+	#done
+	@echo 'tag_orchestration = "${TF_FRAMEWORK_COMPONENT_NAME}"' >>$@;
+	@echo 'tf_framework_component_version = "${GIT_URL}"' >>$@;
+
+
+
+
+TF_COMMANDS:=outputs plan apply destroy
+
+define TF_COMMAND_template
+.PHONY: $(1)
+$(1): init
+	terraform $(1)  -compact-warnings  -lock=true -input=false -refresh=true -var-file=$(TFVARS)
+endef
+
+$(foreach tf_command,$(TF_COMMANDS),$(eval $(call TF_COMMAND_template,$(tf_command))))

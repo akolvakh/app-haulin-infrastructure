@@ -1,0 +1,8 @@
+venv/
+*.swp
+*.pyc
+dist/
+*.egg-info
+lint.txt
+build/*
+*.zip

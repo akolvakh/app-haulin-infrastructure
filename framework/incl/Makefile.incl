@@ -1,0 +1,45 @@
+# exit on shell errors
+SHELL := $(SHELL) -e
+
+ENV_INCLUDES=$(shell ls -1 profiles/env-*.incl)
+ENVIRONMENTS=$(subst env-,,$(ENV_INCLUDES))
+ENVIRONMENTS=$(subst .incl,,$(ENV_INCLUDES))
+ENVIRONMENTS_SUBST=$(subst profiles/,,$(ENVIRONMENTS))
+
+# determine from *-env.incl
+# ToDo refactor
+
+PATTERN=$(subst env-,,$(shell readlink profiles/env.incl))
+TF_NEEDS_QUOTES_environment=$(subst .incl,,$(PATTERN))
+
+
+default: 
+	@if [ ! -e env.incl ]; then \
+		echo "First set the env.incl link by running make for one of: [ $(subst .incl,,${ENV_INCLUDES}) ]"; \
+		echo $(ENV_INCLUDES); \
+		echo $(ENVIRONMENTS); \
+		echo $(ENVIRONMENTS_SUBST); \
+	fi
+
+# Change the environment incl file
+
+define ENV_template
+.PHONY: $(1)
+$(1):
+	@if [ -e profiles/$(1).incl ]; then                           \
+		rm -f env.incl;                                  \
+		ln -sf $(1).incl profiles/env.incl;                    \
+		echo env.incl now points to `readlink profiles/env.incl`; \
+	else                                                     \
+		echo $(1).incl does not exist!.;              \
+	fi
+endef
+
+$(foreach env,$(ENVIRONMENTS_SUBST),$(eval $(call ENV_template,$(env))))
+
+# if env.incl exists include both env.incl and rules.incl
+
+ifneq (,$(wildcard profiles/env.incl))
+include profiles/env.incl
+include $(ROOT_DIR)/framework/incl/Rules.incl
+endif

@@ -1,0 +1,189 @@
+acm_cloudfront_arn = "arn:aws:acm:us-east-1:343423493973:certificate/a84db5dc-5bed-4eb5-87d5-a43f42c08f60"
+acm_loadbalancer_arn = "arn:aws:acm:us-east-1:343423493973:certificate/11836707-4736-4290-a721-67f3e944b8d8"
+
+alb_apl_private_hosted_zone_id = "Z35SXDOTRQ7X7K"
+alb_dns = "usp-dev-public-lb-3896407046-1269232602.us-east-1.elb.amazonaws.com"
+
+bastion_ip = {
+  "ami" = "ami-0fcda042dd8ae41c7"
+  "arn" = "arn:aws:ec2:us-east-1:343423493973:instance/i-0d60384878bd3cb6e"
+  "associate_public_ip_address" = true
+  "availability_zone" = "us-east-1a"
+  "capacity_reservation_specification" = tolist([
+    {
+      "capacity_reservation_preference" = "open"
+      "capacity_reservation_target" = tolist([])
+    },
+  ])
+  "cpu_core_count" = 1
+  "cpu_threads_per_core" = 1
+  "credit_specification" = tolist([
+    {
+      "cpu_credits" = "standard"
+    },
+  ])
+  "disable_api_stop" = false
+  "disable_api_termination" = false
+  "ebs_block_device" = toset([])
+  "ebs_optimized" = false
+  "enclave_options" = tolist([
+    {
+      "enabled" = false
+    },
+  ])
+  "ephemeral_block_device" = toset([])
+  "get_password_data" = false
+  "hibernation" = false
+  "host_id" = tostring(null)
+  "iam_instance_profile" = ""
+  "id" = "i-0d60384878bd3cb6e"
+  "instance_initiated_shutdown_behavior" = "stop"
+  "instance_state" = "running"
+  "instance_type" = "t2.micro"
+  "ipv6_address_count" = 0
+  "ipv6_addresses" = tolist([])
+  "key_name" = "dev_usp_db_bastion-dev-key"
+  "launch_template" = tolist([])
+  "maintenance_options" = tolist([
+    {
+      "auto_recovery" = "default"
+    },
+  ])
+  "metadata_options" = tolist([
+    {
+      "http_endpoint" = "enabled"
+      "http_put_response_hop_limit" = 1
+      "http_tokens" = "optional"
+      "instance_metadata_tags" = "disabled"
+    },
+  ])
+  "monitoring" = false
+  "network_interface" = toset([])
+  "outpost_arn" = ""
+  "password_data" = ""
+  "placement_group" = ""
+  "placement_partition_number" = tonumber(null)
+  "primary_network_interface_id" = "eni-0937f4be258a3f8f1"
+  "private_dns" = "ip-10-201-0-218.ec2.internal"
+  "private_dns_name_options" = tolist([
+    {
+      "enable_resource_name_dns_a_record" = false
+      "enable_resource_name_dns_aaaa_record" = false
+      "hostname_type" = "ip-name"
+    },
+  ])
+  "private_ip" = "10.201.0.218"
+  "public_dns" = "ec2-18-210-45-94.compute-1.amazonaws.com"
+  "public_ip" = "18.210.45.94"
+  "root_block_device" = tolist([
+    {
+      "delete_on_termination" = true
+      "device_name" = "/dev/sda1"
+      "encrypted" = false
+      "iops" = 100
+      "kms_key_id" = ""
+      "tags" = tomap({})
+      "throughput" = 0
+      "volume_id" = "vol-000dc843c697bdff8"
+      "volume_size" = 8
+      "volume_type" = "gp2"
+    },
+  ])
+  "secondary_private_ips" = toset([])
+  "security_groups" = toset([])
+  "source_dest_check" = true
+  "subnet_id" = "subnet-035db4159567d3966"
+  "tags" = tomap({
+    "Name" = "dev_usp_db_bastion"
+  })
+  "tags_all" = tomap({
+    "Name" = "dev_usp_db_bastion"
+  })
+  "tenancy" = "default"
+  "timeouts" = null /* object */
+  "user_data" = tostring(null)
+  "user_data_base64" = tostring(null)
+  "user_data_replace_on_change" = false
+  "volume_tags" = tomap(null) /* of string */
+  "vpc_security_group_ids" = toset([
+    "sg-01dec5955d6855f00",
+  ])
+}
+
+bootstrap_brokers = "b-1.devuspmskcluster.jt7or6.c25.kafka.us-east-1.amazonaws.com:9092,b-2.devuspmskcluster.jt7or6.c25.kafka.us-east-1.amazonaws.com:9092"
+
+cloudfront_admin_fe_id = "E2AB83PTO6S3SI"
+cloudfront_distribution_domain_name = "dny49zytvbzlw.cloudfront.net"
+cloudfront_distribution_hosted_zone_id = "Z2FDTNDATAQYW2"
+cloudfront_s3_arn = "arn:aws:s3:::dev-usp-5653793749124285346"
+cloudfront_s3_name = "dev-usp-5653793749124285346"
+
+cognito_app_client_id = "1fs4qijsfub2ue3d79q555amva"
+cognito_app_pool_arn = "arn:aws:cognito-idp:us-east-1:343423493973:userpool/us-east-1_mIxmToLYk"
+cognito_app_pool_endpoint = "cognito-idp.us-east-1.amazonaws.com/us-east-1_mIxmToLYk"
+cognito_app_pool_id = "us-east-1_mIxmToLYk"
+
+db_cluster_arn = "arn:aws:rds:us-east-1:343423493973:cluster:dev-usp"
+db_main_entrypoint = "dev-usp.cluster-cpewhy546lbt.us-east-1.rds.amazonaws.com"
+
+ecs_cluster = "dev_usp_ecs_cluster"
+
+ecs_service_api_gateway_ecr = "343423493973.dkr.ecr.us-east-1.amazonaws.com/usp_service_api-gateway"
+ecs_service_api_gateway_service_name = "usp-dev-ecs-service-api-gateway"
+ecs_service_api_gateway_task_execution_role = "arn:aws:iam::343423493973:role/dev_usp_api-gateway_task_execution_role_10916870912862616893"
+ecs_service_api_gateway_task_role = "arn:aws:iam::343423493973:role/dev_usp_api-gateway_task_role_10234930849334239836"
+ecs_service_api_gateway_td = "usp-dev-api-gateway"
+
+ecs_service_import_ecr = "343423493973.dkr.ecr.us-east-1.amazonaws.com/usp_service_import"
+ecs_service_import_service_name = "usp-dev-ecs-service-import"
+ecs_service_import_task_execution_role = "arn:aws:iam::343423493973:role/dev_usp_import_task_execution_role_14498692014646914695"
+ecs_service_import_task_role = "arn:aws:iam::343423493973:role/dev_usp_import_task_role_9286746536629655624"
+ecs_service_import_td = "usp-dev-import"
+
+ecs_service_lesson_management_ecr = "343423493973.dkr.ecr.us-east-1.amazonaws.com/usp_service_lesson-management"
+ecs_service_lesson_management_service_name = "usp-dev-ecs-service-lesson-management"
+ecs_service_lesson_management_task_execution_role = "arn:aws:iam::343423493973:role/dev_usp_lesson-management_task_execution_role_431502816942650432"
+ecs_service_lesson_management_task_role = "arn:aws:iam::343423493973:role/dev_usp_lesson-management_task_role_13030428709612467766"
+ecs_service_lesson_management_td = "usp-dev-lesson-management"
+
+ecs_service_message_bus_ecr = "343423493973.dkr.ecr.us-east-1.amazonaws.com/usp_service_message-bus"
+ecs_service_message_bus_service_name = "usp-dev-ecs-service-message-bus"
+ecs_service_message_bus_task_execution_role = "arn:aws:iam::343423493973:role/dev_usp_message-bus_task_execution_role_2791377270045300252"
+ecs_service_message_bus_task_role = "arn:aws:iam::343423493973:role/dev_usp_message-bus_task_role_59921779460436109"
+ecs_service_message_bus_td = "usp-dev-message-bus"
+
+ecs_service_payment_ecr = "343423493973.dkr.ecr.us-east-1.amazonaws.com/usp_service_payment"
+ecs_service_payment_service_name = "usp-dev-ecs-service-payment"
+ecs_service_payment_task_execution_role = "arn:aws:iam::343423493973:role/dev_usp_payment_task_execution_role_3583056754985328162"
+ecs_service_payment_task_role = "arn:aws:iam::343423493973:role/dev_usp_payment_task_role_1296155148869972181"
+ecs_service_payment_td = "usp-dev-payment"
+
+ecs_service_program_management_ecr = "343423493973.dkr.ecr.us-east-1.amazonaws.com/usp_service_program-management"
+ecs_service_program_management_service_name = "usp-dev-ecs-service-program-management"
+ecs_service_program_management_task_execution_role = "arn:aws:iam::343423493973:role/dev_usp_program-management_task_execution_role_15052008091764969"
+ecs_service_program_management_task_role = "arn:aws:iam::343423493973:role/dev_usp_program-management_task_role_8825198375838007413"
+ecs_service_program_management_td = "usp-dev-program-management"
+
+ecs_service_toa_ecr = "343423493973.dkr.ecr.us-east-1.amazonaws.com/usp_service_tutor-onboarding-application"
+ecs_service_toa_service_name = "usp-dev-ecs-service-tutor-onboarding-application"
+ecs_service_toa_task_execution_role = "arn:aws:iam::343423493973:role/dev_usp_tutor-onboarding-application_task_execution_role_1526813"
+ecs_service_toa_task_role = "arn:aws:iam::343423493973:role/dev_usp_tutor-onboarding-application_task_role_93670384534997657"
+ecs_service_toa_td = "usp-dev-tutor-onboarding-application"
+
+ecs_service_user_ecr = "343423493973.dkr.ecr.us-east-1.amazonaws.com/usp_service_user"
+ecs_service_user_service_name = "usp-dev-ecs-service-user"
+ecs_service_user_task_execution_role = "arn:aws:iam::343423493973:role/dev_usp_user_task_execution_role_13254391845059753074"
+ecs_service_user_task_role = "arn:aws:iam::343423493973:role/dev_usp_user_task_role_2865212640590586017"
+ecs_service_user_td = "usp-dev-user"
+
+elasticache = tolist([
+  "master.usp-dev-non-cluster-4007110766.kkqq3b.use1.cache.amazonaws.com",
+])
+
+msk_cluster_arn = "arn:aws:kafka:us-east-1:343423493973:cluster/dev-usp-msk-cluster/fd5cc7a6-6582-4b88-900c-4d12a80c6bf3-25"
+
+vpc_cidr = "10.201.0.0/16"
+vpc_dns = "dev.usp.local"
+vpc_id = "vpc-088cdd52a0bc5a182"
+
+zookeeper_connect_string = "z-1.devuspmskcluster.jt7or6.c25.kafka.us-east-1.amazonaws.com:2181,z-2.devuspmskcluster.jt7or6.c25.kafka.us-east-1.amazonaws.com:2181,z-3.devuspmskcluster.jt7or6.c25.kafka.us-east-1.amazonaws.com:2181"

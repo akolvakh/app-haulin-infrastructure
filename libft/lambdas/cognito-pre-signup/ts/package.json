@@ -1,0 +1,16 @@
+{
+  "name": "ajuma",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "deploy": "sls deploy --aws-profile ajuma",
+    "deploy:test": "sls deploy --aws-profile ajuma --stage test"
+  },
+  "dependencies": {
+    "axios": "0.26.1"
+  }
+}
