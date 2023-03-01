@@ -1,0 +1,66 @@
+{
+
+  dynamic_link_domain_prefix                               = "https://dev.haulin.com"
+  gh_connection_arn                                        = "arn:aws:codestar-connections:us-east-1:876883435906:connection/d31b6a66-5b40-4215-9ce4-9d9fb2c8929b"
+  vpc_cidr                                                 = "10.201.0.0/16"
+  external_dns_domain                                      = "book-nook-learning.com"
+
+  smoketest_emails                                         = "testautomation@haulin.com"
+  booknook_base_app_url                                    = "https://qa.haulin.com"
+  booknook_app_url                                         = "https://qa.haulin.com"
+  
+  cloudfront_alias                                         = ""
+  allowed_origin_patterns                                  = "*"
+
+  general = {
+    aws_region                                               = "us-east-1"
+    aws_backend_region                                       = "us-east-1"
+    environment                                              = "dev"
+    platform_name                                            = "hln"
+    product                                                  = "hln"
+    contact                                                  = "a.kolvakh@geniusee.com"
+    tag_product                                              = "hln"
+    tag_orchestration                                        = "deployments/pr_haulin/env-hln/_env"
+    tf_framework_component_version                           = "1.0"
+  }
+
+  be = {
+    csrf_enabled                                             = true
+    spring_profiles_active                                   = "development"
+    spring_datasource_url                                    = "1"
+    spring_datasource_driver_class_name                      = "org.postgresql.Driver"
+    server_secret                                            = "CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz"
+    server_domain                                            = "dev.haulin.com"
+    server_base_url                                          = "https://dev.haulin.com"
+  }
+
+  acm = {
+    certificate_authority_arn                                = "arn:aws:acm-pca:us-east-1:602355391257:certificate-authority/6ddf3a12-8844-4841-a4e9-9884d9c24526"
+    public_certificate_arn                                   = "arn:aws:acm:us-east-1:343423493973:certificate/8b995dbd-6165-4dc9-a3b5-78c3a68602b3"
+  }
+
+  cognito = {
+    email_from_domain                                        = "support@haulin.com"
+    ses_aws_region                                           = "us-east-1"
+    sns_monthly_spend_limit                                  = 1
+    cognito_ses_domain                                       = "haulin.com"
+    cogntio_ses_sender                                       = "support"
+    cogntio_ses_email_subject                                = "Haulin Shipment App"
+    cognito_invite_email_subject                             = "Your password for MyTutor"
+    cognito_mail_from_domain                                 = "haulin.com"
+    cognito_urls                                             = "https://d1dtfbyi08uuyl.cloudfront.net/auth/login"
+    cognito_email_from_domain                                = "support+dev@haulin.com"
+  }
+
+  microservices = {
+    be = {
+      env = {
+        database_url                  = "postgresql://digitalbits:hcgvjbk@digitalbits-livenet-ingestor.cd8mxicbojbi.eu-central-1.rds.amazonaws.com:5432/livenet"
+        digitalbits_core_url          = "http://deu-1.digitalbits.network:11626"
+        digitalbits_core_database_url = "postgresql://digitalbits:txfhcgvjh@digitalbits-livenet.cd8mxicbojbi.eu-central-1.rds.amazonaws.com:5432/livenet"
+        history_archive_url           = "https://history.livenet.digitalbits.io/deu-1/"
+      }
+    }
+  }
+
+}
