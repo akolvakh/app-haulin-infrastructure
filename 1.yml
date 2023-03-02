@@ -1,13 +1,13 @@
 {
 
-  dynamic_link_domain_prefix                               = "https://dev.haulin.com"
+  dynamic_link_domain_prefix                               = "https://dev.haulindev.com"
   gh_connection_arn                                        = "arn:aws:codestar-connections:us-east-1:876883435906:connection/d31b6a66-5b40-4215-9ce4-9d9fb2c8929b"
   vpc_cidr                                                 = "10.201.0.0/16"
-  external_dns_domain                                      = "book-nook-learning.com"
+  external_dns_domain                                      = "haulindev.com"
 
-  smoketest_emails                                         = "testautomation@haulin.com"
-  booknook_base_app_url                                    = "https://qa.haulin.com"
-  booknook_app_url                                         = "https://qa.haulin.com"
+  smoketest_emails                                         = "testautomation@haulindev.com"
+  base_app_url                                             = "https://qa.haulindev.com"
+  app_url                                                  = "https://qa.haulindev.com"
   
   cloudfront_alias                                         = ""
   allowed_origin_patterns                                  = "*"
@@ -30,9 +30,9 @@
   spring_datasource_url                                    = "1"
   spring_datasource_driver_class_name                      = "org.postgresql.Driver"
   server_secret                                            = "CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz"
-  server_domain                                            = "dev.haulin.com"
-  server_base_url                                          = "https://dev.haulin.com"
-         db_schema = "public"
+  server_domain                                            = "dev.haulindev.com"
+  server_base_url                                          = "https://dev.haulindev.com"
+  db_schema = "public"
 }
 
   acm = {
@@ -41,16 +41,16 @@
 }
 
   cognito = {
-  email_from_domain                                        = "support@haulin.com"
+  email_from_domain                                        = "support@haulindev.com"
   ses_aws_region                                           = "us-east-1"
   sns_monthly_spend_limit                                  = 1
-  cognito_ses_domain                                       = "haulin.com"
+  cognito_ses_domain                                       = "haulindev.com"
   cogntio_ses_sender                                       = "support"
   cogntio_ses_email_subject                                = "Haulin Shipment App"
   cognito_invite_email_subject                             = "Your password for MyTutor"
-  cognito_mail_from_domain                                 = "haulin.com"
+  cognito_mail_from_domain                                 = "haulindev.com"
   cognito_urls                                             = "https://d1dtfbyi08uuyl.cloudfront.net/auth/login"
-  cognito_email_from_domain                                = "support+dev@haulin.com"
+  cognito_email_from_domain                                = "support+dev@haulindev.com"
 }
 
   microservices = {

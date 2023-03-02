@@ -118,13 +118,13 @@ data "aws_default_tags" "default" {}
     }
 
     locals_cloudfront_alias = {
-      dev     = ["hln.dev.haulin.com"]
+      dev     = ["hln.dev.haulindev.com"]
       staging = []
       prod    = []
     }
 
     locals_acm_cloudfront_name = {
-      dev     = "hln.dev.haulin.com"
+      dev     = "hln.dev.haulindev.com"
       staging = ""
       prod    = ""
     }
