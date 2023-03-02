@@ -41,7 +41,7 @@
 }
 
   cognito = {
-  email_from_domain                                        = "support@haulindev.com"
+  email_from_domain                                        = "support+dev@haulindev.com"
   ses_aws_region                                           = "us-east-1"
   sns_monthly_spend_limit                                  = 1
   cognito_ses_domain                                       = "haulindev.com"

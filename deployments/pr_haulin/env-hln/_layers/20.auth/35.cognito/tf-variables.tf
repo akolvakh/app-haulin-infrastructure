@@ -18,6 +18,8 @@ variable "label" {}
 variable "profile" {}
 variable "cognito_urls" {}
 variable "cognito_invite_email_message" {}
+variable "vpc_cidr" {}
+variable "schemas" {}
 
 
 variable "tf_framework_component_version" {
@@ -43,5 +45,3 @@ variable "lambda_pre_signup_version" {
   description = "version of pre signup lambda to deploy. To be set by CD autamation"
   default     = "latest"
 }
-variable "vpc_cidr" {}
-variable "schemas" {}
