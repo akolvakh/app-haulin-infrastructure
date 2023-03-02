@@ -23,8 +23,8 @@ module "db_subnet_group" {
 # RDS cluster parameter group
 #------------------------------------------------------------------------------
 resource "aws_rds_cluster_parameter_group" "rds_aurora" {
-  name        = "${module.label.id}-parameter-group-v11"
-  family      = "aurora-postgresql11"
+  name        = "${module.label.id}-parameter-group-v10"
+  family      = "aurora-postgresql10"
   description = "${module.label.id} parameter group"
   tags        = module.label.tags
   parameter {
