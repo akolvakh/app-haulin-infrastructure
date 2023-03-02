@@ -118,20 +118,22 @@ data "aws_default_tags" "default" {}
     }
 
     locals_cloudfront_alias = {
-      dev     = ["hln.dev.haulindev.com"]
+      dev     = ["${module.label.tags["Product"]}.${module.label.tags["Environment"]}.${var.profile.external_dns_domain}"]
       staging = []
       prod    = []
     }
 
     locals_acm_cloudfront_name = {
-      dev     = "hln.dev.haulindev.com"
+      dev     = "${module.label.tags["Product"]}.${module.label.tags["Environment"]}.${var.profile.external_dns_domain}"
       staging = ""
       prod    = ""
     }
 
+
+
     locals_acm_alb_name = {
-      dev     = "${module.label.tags["Product"]}.api.${module.label.tags["Environment"]}.haulin.com"
-      staging = "${module.label.tags["Product"]}.api.${module.label.tags["Environment"]}.haulin.com"
+      dev     = "${module.label.tags["Product"]}.api.${module.label.tags["Environment"]}.${var.profile.external_dns_domain}"
+      staging = "${module.label.tags["Product"]}.api.${module.label.tags["Environment"]}.${var.profile.external_dns_domain}"
       prod    = ""
     }
   }

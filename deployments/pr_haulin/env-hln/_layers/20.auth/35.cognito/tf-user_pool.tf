@@ -126,6 +126,24 @@ module "cognito_app_user_pool" {
   ]
 }
 
+#consumer
+#shipper
+#username
+#email - optional
+#phonenumber + password
+
+#sqs
+
+#redis - later
+
+#s3
+
+#cognito = notifications to email + phonenumber
+#-phonenumber verif
+#-email verif
+
+
+
 #--------------------------------------------------------------
 # SES
 #--------------------------------------------------------------
