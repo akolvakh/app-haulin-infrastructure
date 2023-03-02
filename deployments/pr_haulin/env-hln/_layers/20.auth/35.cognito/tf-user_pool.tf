@@ -153,7 +153,7 @@ module "cognito_app_ses" {
   source                   = "../../../../../../libft/generic-modules/ses"
   dns_external_zone_domain = var.profile.cognito_ses_domain //var.external_dns_domain //var.cognito_mail_from_domain //"peerprep.co" //"book-nook-learning.com"  //"peerprep.co" //var.external_dns_domain
   mail_from_domain         = "mail.${var.profile.cognito_ses_domain}"  //"mail.${var.external_dns_domain}" //"mail.book-nook-learning.com" //"mail.${var.external_dns_domain}" //"mail.peerprep.co"
-  cogntio_ses_sender       = var.profile.cogntio_ses_sender
+  cogntio_ses_sender       = var.profile.cognito_ses_sender
   environment              = var.label["Environment"]
   aws_region               = var.label["Region"]
 }

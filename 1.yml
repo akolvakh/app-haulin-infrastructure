@@ -45,8 +45,8 @@
   ses_aws_region                                           = "us-east-1"
   sns_monthly_spend_limit                                  = 1
   cognito_ses_domain                                       = "haulindev.com"
-  cogntio_ses_sender                                       = "support"
-  cogntio_ses_email_subject                                = "Haulin Shipment App"
+  cognito_ses_sender                                       = "support"
+  cognito_ses_email_subject                                = "Haulin Shipment App"
   cognito_invite_email_subject                             = "Your password for MyTutor"
   cognito_mail_from_domain                                 = "haulindev.com"
   cognito_urls                                             = "https://d1dtfbyi08uuyl.cloudfront.net/auth/login"
