@@ -23,7 +23,7 @@ module "cognito_app_user_pool" {
   # TODO # app_main_cognito                         = true
   recovery_mechanisms                      = [{ "name" = "verified_email", "priority" = 1 }] //[{ "name" = "verified_email", "priority" = 1 }, { "name" = "verified_phone_number", "priority" = 2 }]
   email_configuration_source_arn           = module.cognito_app_ses.mail_from_arn
-  email_configuratino_from_email           = "${var.profile.cogntio_ses_email_subject} <${var.profile.cognito_mail_from_domain}>"
+  email_configuratino_from_email           = "${var.profile.cognito_ses_email_subject} <${var.profile.cognito_mail_from_domain}>"
   cognito_invite_email_message             = var.cognito_invite_email_message
   cognito_invite_email_subject             = var.profile.cognito_invite_email_subject
   
