@@ -2,7 +2,7 @@ module "task_def" {
   source                             = "../../../../../../libft/generic-modules/deployment/service/task_definition"
   container_definition_template_path = "${path.module}/tpl/task_definitions/service.json.tpl"
   container_definition_params = {
-    cache_entrypoint              = var.outputs_cache_cache_entrypoint[0]
+    cache_entrypoint              = var.outputs_cache_cache_entrypoint
     cognito_user_pool             = var.outputs_cognito_cognito_app_pool_id
     docker_registry_url           = aws_ecr_repository.ecr.repository_url
     spring_profiles_active        = var.profile.spring_profiles_active
